@@ -1,0 +1,17 @@
+{
+  "name": "queue",
+  "version": "0.0.1",
+  "description": "queue",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies":{
+    "vitex" : "0.0.9"
+  },
+  "keywords": [
+    "queue"
+  ],
+  "author": "skipify@qq.com",
+  "license": "MIT"
+}
