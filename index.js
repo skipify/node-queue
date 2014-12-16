@@ -1,5 +1,7 @@
-var vitex = require('vitex'),
-	_     = require('lodash');
+var vitex  = require('vitex'),
+	_      = require('lodash'),
+	util   = require('util'),
+	Events = require('events').EventEmitter;
 
 var Queue = function(opts){
 	if(!(this instanceof Queue)) return new Queue(opts);
@@ -8,7 +10,10 @@ var Queue = function(opts){
 		throw new Error('mongodb contect config can not empty');
 	}
 	this.vitex = vitex(mongodb,'queue');
+	Events.call(this);
 }
+
+util.inherits(Queue,Events);
 
 /*
 	添加队列
