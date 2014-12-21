@@ -13,18 +13,37 @@ util.inherits(Queue,Events);
 
 /*
 	添加队列
+	@param priority  优先级  low 10 high 50 higher 80 default 10
 */
-Queue.prototype.addTask = function(task){
+Queue.prototype.addTask = function(task,priority){
+	priority = priority || 10;
+	task = {task:task,priority:priority}
+
 	_tasks.push(task);
 	this.emit('addtask',_tasks);
 	return this;
 }
 /*
-	按顺序获取一个队列，返回队列并且从队列中删除
+	按优先级获取一个队列
 */
 Queue.prototype.getTask = function(){
-	var t = _tasks.pop();
 
+	var ts = _tasks.slice(0);
+	ts.sort(function(p,n){
+		return p.priority < n.priority;
+	})
+	var t = ts.shift();
+	if(_tasks.length == 0){
+		this.emit('emptytask',null);
+	}
+	return t.task;
+}
+/*
+	按顺序获取一个队列，返回队列并且从队列中删除
+*/
+Queue.prototype.getTaskOrder = function(){
+	var t = _tasks.pop();
+		t = t.task;
 	if(_tasks.length == 0){
 		this.emit('emptytask',null);
 	}
