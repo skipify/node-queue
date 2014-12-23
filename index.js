@@ -82,10 +82,41 @@ var _      = require('lodash'),
 })();
 
 ;(function(){
+	var maxTime = 24 * 60 * 10,
+		minTime = 5;
+
 	var  Schedule = function(opts){
 		if(!(this instanceof Schedule)) return new Schedule(opts);
 	}
-	
+
+	//@param 上次更新时间 timestamp
+	//@param 间隔时间
+	Schedule.prototype.needSchedule = function(last,interval){
+		interval = interval * 60;
+		var now  = Math.round((new Date()).getTime()/1000);
+		if(now >= (last + interval)){
+			return true;
+		}
+		return false;
+	}
+	/*
+		对比两个对象是否一致
+	*/
+	Schedule.prototype.compare = function(o1,o2){
+		if(typeof o1 != typeof o2) return false;
+		return JSON.stringify(o1) == JSON.stringify(o2);
+	}
+
+	//计算新时间调度结果
+	Schedule.prototype.newTime = function(bool,oldtime){
+		//eq
+		if(bool){
+			return Math.min(oldtime * 2,maxTime); 
+		}else{
+			var n = Math.round(oldtime / 2);
+			return Math.max(minTime,n)
+		}
+	}
 	root.Schedule = Schedule;
 })();
 
