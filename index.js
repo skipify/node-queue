@@ -83,11 +83,14 @@ var _      = require('lodash'),
 
 ;(function(){
 	var maxTime = 24 * 60 * 10,
-		minTime = 5;
+		minTime = 5,
+		maxRetry = 5;
 
 	var  Schedule = function(opts){
 		if(!(this instanceof Schedule)) return new Schedule(opts);
 	}
+
+
 
 	//@param 上次更新时间 timestamp
 	//@param 间隔时间
@@ -117,6 +120,15 @@ var _      = require('lodash'),
 			return Math.max(minTime,n)
 		}
 	}
+	//是否超过重试最大值，超过则拒绝任务
+	//@return true 拒绝任务
+	Schedule.prototype.isReject = function(task){
+		if(task.interval >= maxTime && task.retry >= maxRetry){
+			return true;
+		}
+		return false;
+	}
+	
 	root.Schedule = Schedule;
 })();
 
