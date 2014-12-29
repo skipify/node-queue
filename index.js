@@ -83,7 +83,7 @@ var _      = require('lodash'),
 
 ;(function(){
 	var maxTime = 24 * 60 * 10,
-		minTime = 5,
+		minTime = 10,
 		maxRetry = 5;
 
 	var  Schedule = function(opts){
