@@ -1,3 +1,6 @@
+/*
+	队列直接保存在内存中
+*/
 var _      = require('lodash'),
 	util   = require('util'),
 	Events = require('events').EventEmitter,
