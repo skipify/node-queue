@@ -1,5 +1,6 @@
 /*
 	队列直接保存在内存中
+	V 0.0.1
 */
 var _      = require('lodash'),
 	util   = require('util'),
